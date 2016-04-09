@@ -1,0 +1,16 @@
+[
+{
+  "modid": "burlapcraftmod",
+  "name": "BurlapCraft",
+  "description": "Using Minecraft as a test bed for artificial intelligence by integrating with BURLAP.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/h2r/burlapcraft",
+  "updateUrl": "https://github.com/h2r/burlapcraft",
+  "authorList": ["Stefanie Tellex", "James MacGlashan", "Krishna Aluru", "John Oberlin"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

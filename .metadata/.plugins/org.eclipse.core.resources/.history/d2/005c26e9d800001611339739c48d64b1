@@ -1,0 +1,6 @@
+package comp417Project;
+
+// TODO
+public class Bug2 extends Bug0{
+
+}

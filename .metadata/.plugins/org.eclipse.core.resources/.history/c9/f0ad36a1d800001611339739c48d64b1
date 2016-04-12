@@ -27,7 +27,6 @@ import burlap.oomdp.singleagent.GroundedAction;
 import burlap.oomdp.singleagent.RewardFunction;
 import burlap.oomdp.statehashing.SimpleHashableStateFactory;
 import comp417Project.Bug0;
-import comp417Project.Bug2;
 import edu.brown.cs.h2r.burlapcraft.BurlapCraft;
 import edu.brown.cs.h2r.burlapcraft.domaingenerator.MinecraftDomainGenerator;
 import edu.brown.cs.h2r.burlapcraft.dungeongenerator.Dungeon;

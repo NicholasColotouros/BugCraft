@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="comp417Project.Bug0"/>
-<fullyQualifiedTypeName name="edu.brown.cs.h2r.burlapcraft.dungeongenerator.Dungeon"/>
 <fullyQualifiedTypeName name="comp417Project.DungeonBug01"/>
 <fullyQualifiedTypeName name="comp417Project.DungeonBug02"/>
 <fullyQualifiedTypeName name="comp417Project.DungeonBug03"/>
+<fullyQualifiedTypeName name="burlap.oomdp.core.Domain"/>
+<fullyQualifiedTypeName name="edu.brown.cs.h2r.burlapcraft.helper.HelperPos"/>
+<fullyQualifiedTypeName name="edu.brown.cs.h2r.burlapcraft.dungeongenerator.Dungeon"/>
+<fullyQualifiedTypeName name="burlap.oomdp.core.states.State"/>
+<fullyQualifiedTypeName name="edu.brown.cs.h2r.burlapcraft.BurlapCraft"/>
+<fullyQualifiedTypeName name="edu.brown.cs.h2r.burlapcraft.helper.HelperGeometry.Pose"/>
+<fullyQualifiedTypeName name="net.minecraft.block.Block"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="org.ejml.alg.block.GeneratorBlockInnerMultiplication"/>
+<fullyQualifiedTypeName name="edu.brown.cs.h2r.burlapcraft.helper.HelperActions"/>
 </qualifiedTypeNameHistroy>

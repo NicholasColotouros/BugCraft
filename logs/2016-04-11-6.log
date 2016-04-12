@@ -1,0 +1,21 @@
+[23:39:47] [main/INFO]: Setting user: Player82
+[23:39:48] [Client thread/INFO]: LWJGL Version: 2.9.1
+[23:39:57] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:BurlapCraft
+[23:39:58] [Sound Library Loader/INFO]: Sound engine started
+[23:39:58] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[23:39:58] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[23:39:58] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:BurlapCraft
+[23:39:59] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[23:39:59] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[23:39:59] [Sound Library Loader/INFO]: Sound engine started
+[23:40:08] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[23:40:08] [Server thread/INFO]: Generating keypair
+[23:40:08] [Server thread/INFO]: Preparing start region for level 0
+[23:40:09] [Server thread/INFO]: Changing view distance to 12, from 10
+[23:40:09] [Server thread/INFO]: Player82[local:E:53184aee] logged in with entity id 154 at (-116.5, 81.0, -208.0)
+[23:40:09] [Server thread/INFO]: Player82 joined the game
+[23:40:13] [Client thread/INFO]: [CHAT] Dungeons aren't yet created.
+[23:40:26] [Server thread/INFO]: Saving and pausing game...
+[23:40:26] [Server thread/INFO]: Saving chunks for level 'ROS'/Overworld
+[23:40:26] [Server thread/INFO]: Saving chunks for level 'ROS'/Nether
+[23:40:26] [Server thread/INFO]: Saving chunks for level 'ROS'/The End

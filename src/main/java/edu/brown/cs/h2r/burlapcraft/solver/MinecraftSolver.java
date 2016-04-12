@@ -73,6 +73,17 @@ public class MinecraftSolver {
 		DeterministicPlanner planner = null;
 		if(plannerToUse == 0){ // BFS
 			planner = new BFS(domain, gc, new SimpleHashableStateFactory(false));
+			
+			planner.planFromState(initialState);
+
+			Policy p = closedLoop ? new DDPlannerPolicy(planner) : new SDPlannerPolicy(planner);
+
+			MinecraftEnvironment me = new MinecraftEnvironment(domain);
+			me.setTerminalFunction(tf);
+			
+			p.evaluateBehavior(me);
+			
+
 
 		}
 		else if(plannerToUse == 1){ // A*
@@ -99,24 +110,25 @@ public class MinecraftSolver {
 				}
 			};
 			planner = new AStar(domain, rf, gc, new SimpleHashableStateFactory(false), mdistHeuristic);
+			
+			planner.planFromState(initialState);
+
+			Policy p = closedLoop ? new DDPlannerPolicy(planner) : new SDPlannerPolicy(planner);
+
+			MinecraftEnvironment me = new MinecraftEnvironment(domain);
+			me.setTerminalFunction(tf);
+			
+			p.evaluateBehavior(me);
+			
+
 		}
 		else if(plannerToUse == 2){ // Bug0
-			planner = new Bug0(domain, gc, new SimpleHashableStateFactory(false));
+			Bug0 bug = new Bug0(domain, BurlapCraft.currentDungeon);
+			bug.test();
 		}
 		else{
 			throw new RuntimeException("Error: planner type is " + planner + "; use 0 for BFS or 1 for A* or 2 for Bug0");
 		}
-//		planner.setTf(tf);
-		
-		planner.planFromState(initialState);
-
-		Policy p = closedLoop ? new DDPlannerPolicy(planner) : new SDPlannerPolicy(planner);
-
-		MinecraftEnvironment me = new MinecraftEnvironment(domain);
-		me.setTerminalFunction(tf);
-		
-		p.evaluateBehavior(me);
-		
 	}
 
 	public static void learn(){

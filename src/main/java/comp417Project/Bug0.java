@@ -1,124 +1,113 @@
 package comp417Project;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.Random;
 
-import burlap.behavior.policy.Policy;
-import burlap.behavior.singleagent.planning.deterministic.DeterministicPlanner;
-import burlap.behavior.singleagent.planning.deterministic.SDPlannerPolicy;
-import burlap.behavior.singleagent.planning.deterministic.SearchNode;
-import burlap.debugtools.DPrint;
-import burlap.oomdp.auxiliary.common.NullTermination;
-import burlap.oomdp.auxiliary.stateconditiontest.StateConditionTest;
 import burlap.oomdp.core.Domain;
 import burlap.oomdp.core.states.State;
-import burlap.oomdp.singleagent.Action;
-import burlap.oomdp.singleagent.GroundedAction;
-import burlap.oomdp.singleagent.common.UniformCostRF;
-import burlap.oomdp.statehashing.HashableState;
-import burlap.oomdp.statehashing.HashableStateFactory;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import edu.brown.cs.h2r.burlapcraft.BurlapCraft;
+import edu.brown.cs.h2r.burlapcraft.dungeongenerator.Dungeon;
+import edu.brown.cs.h2r.burlapcraft.helper.HelperActions;
+import edu.brown.cs.h2r.burlapcraft.helper.HelperPos;
+import edu.brown.cs.h2r.burlapcraft.stategenerator.StateGenerator;
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.World;
+import net.minecraft.server.*;
+import java.util.Random;
 
-public class Bug0 extends DeterministicPlanner{
-	/**
-	 * BFS only needs reference to the domain, goal conditions, and hashing factory. The reward function is considered UniformCost, but is
-	 * not used. No states are considered terminal states, but planning will stop when it finds the goal state.
-	 * @param domain the domain in which to plan
-	 * @param gc the test for goal states
-	 * @param hashingFactory the state hashing factory to use.
-	 */
-	public Bug0(Domain domain, StateConditionTest gc, HashableStateFactory hashingFactory){
-		this.deterministicPlannerInit(domain, new UniformCostRF(), new NullTermination(), gc, hashingFactory);
-	}
-
-
-	/**
-	 * Plans and returns a {@link burlap.behavior.singleagent.planning.deterministic.SDPlannerPolicy}. If
-	 * a {@link burlap.oomdp.core.states.State} is not in the solution path of this planner, then
-	 * the {@link burlap.behavior.singleagent.planning.deterministic.SDPlannerPolicy} will throw
-	 * a runtime exception. If you want a policy that will dynamically replan for unknown states,
-	 * you should create your own {@link burlap.behavior.singleagent.planning.deterministic.DDPlannerPolicy}.
-	 * @param initialState the initial state of the planning problem
-	 * @return a {@link burlap.behavior.singleagent.planning.deterministic.SDPlannerPolicy}.
-	 */
-	@Override
-	public SDPlannerPolicy planFromState(State initialState) {
-		
-		HashableState sih = this.stateHash(initialState);
-		
-		if(mapToStateIndex.containsKey(sih)){
-			return new SDPlannerPolicy(this); //no need to plan since this is already solved
-		}
-		
-		
-		LinkedList<SearchNode> openQueue = new LinkedList<SearchNode>();
-		Set <SearchNode> openedSet = new HashSet<SearchNode>();
-		
-		
-		SearchNode initialSearchNode = new SearchNode(sih);
-		openQueue.offer(initialSearchNode);
-		openedSet.add(initialSearchNode);
-		
-		SearchNode lastVistedNode = null;
-		
-		
-		int nexpanded = 0;
-		while(openQueue.size() > 0){
-			
-			SearchNode node = openQueue.poll();
-			nexpanded++;
-			
-			
-			
-			State s = node.s.s;
-			if(gc.satisfies(s)){
-				lastVistedNode = node;
-				break;
-			}
-			
-			if(this.tf.isTerminal(s)){
-				continue; //don't expand terminal states
-			}
-			
-			//first get all grounded actions for this state
-			/*List <GroundedAction> gas = new ArrayList<GroundedAction>();
-			for(Action a : actions){
-				gas.addAll(s.getAllGroundedActionsFor(a));
-				
-			}
-			*/
-			List<GroundedAction> gas = Action.getAllApplicableGroundedActionsFromActionList(this.actions, s);
-			
-			
-			//add children reach from each deterministic action
-			for(GroundedAction ga : gas){
-				State ns = ga.executeIn(s);
-				HashableState nsh = this.stateHash(ns);
-				SearchNode nsn = new SearchNode(nsh, ga, node);
-				
-				if(openedSet.contains(nsn)){
-					continue;
-				}
-				
-				//otherwise add for expansion
-				openQueue.offer(nsn);
-				openedSet.add(nsn);
-				
-				
-			}
-			
-			
-		}
-		
+/***
+ * Bug0 that turns right all of the time
+ * @author Nicholas
+ *
+ */
+public class Bug0 {
 	
-		
-		this.encodePlanIntoPolicy(lastVistedNode);
-
-		
-		DPrint.cl(debugCode,"Num Expanded: " + nexpanded);
-
-		return new SDPlannerPolicy(this);
-		
+	public enum Direction { North, East, South, West }
+	
+    HelperPos curPos;
+    Direction direction;
+    boolean followingWall;
+       
+    public Bug0(){
+        curPos = HelperActions.getPlayerPosition();
+        followingWall = false;
+    }
+    
+    private Direction getCurrentDirection() {
+    	int yaw = Math.abs(HelperActions.getYawDirection());
+    	if(yaw >= 0 && yaw < 90) return Direction.South;
+    	else if (yaw >= 90 && yaw < 180) return Direction.West;
+    	else if (yaw >= 180 && yaw < 270) return Direction.South;
+    	else return Direction.East;
 	}
+
+    public void test()
+    {
+    	HelperActions.moveForward(true);
+    	
+    	HelperActions.getPlayerPosition();
+    	// Initialize so we know direction
+    	direction = Direction.North;
+    	turnRight();
+    	
+    	try
+    	{
+    		Thread.sleep(1500);
+    		int b = getBlockOnFloor();
+    		System.out.println(b);
+
+    	}catch(Exception e){}
+    }
+    
+	private void printPos(){
+        System.out.println("You are at "+ curPos.x + "," + curPos.y + "," + curPos.z);
+    }
+    
+    private int getBlockOnFloor(){
+    	return HelperActions.getBlockId(curPos.x, curPos.y-1, curPos.z);
+    }
+    
+    private int getBlockAhead(){
+    	switch(direction){
+    	case North:
+    		return HelperActions.getBlockId(curPos.x, curPos.y, curPos.z-1);
+    		
+    	case East:
+    		return HelperActions.getBlockId(curPos.x+1, curPos.y, curPos.z);
+    		
+    	case South:
+    		return HelperActions.getBlockId(curPos.x, curPos.y, curPos.z+1);
+    		
+    	case West:
+    		return HelperActions.getBlockId(curPos.x-1, curPos.y, curPos.z);
+    	}
+    	return -1;
+    }
+    
+    public void turnRight(){
+    	switch(direction){
+    	case North:
+    		HelperActions.faceEast();
+    		direction = Direction.East;
+    		break;
+    		
+    	case East:
+    		HelperActions.faceSouth();
+    		direction = Direction.South;
+    		break;
+    		
+    	case South:
+    		HelperActions.faceWest();
+    		direction = Direction.West;
+    		break;
+    		
+    	case West:
+    		HelperActions.faceNorth();
+    		direction = Direction.North;
+    	}
+    }
 }

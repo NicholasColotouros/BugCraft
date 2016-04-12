@@ -1,0 +1,106 @@
+package comp417Project;
+
+import java.util.Random;
+
+import burlap.oomdp.core.Domain;
+import burlap.oomdp.core.states.State;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import edu.brown.cs.h2r.burlapcraft.BurlapCraft;
+import edu.brown.cs.h2r.burlapcraft.dungeongenerator.Dungeon;
+import edu.brown.cs.h2r.burlapcraft.helper.HelperActions;
+import edu.brown.cs.h2r.burlapcraft.helper.HelperPos;
+import edu.brown.cs.h2r.burlapcraft.stategenerator.StateGenerator;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.World;
+import net.minecraft.server.*;
+import java.util.Random;
+
+public class Bug0 {
+	
+	public enum Direction { North, East, South, West }
+	
+    Domain domain;
+    State state;
+    Dungeon dungeon;
+    int [][][] map;
+    HelperPos curPos;
+    HelperActions helper;
+    Direction direction;
+       
+    public Bug0(Domain domain, Dungeon dungeon, int [][][] map){
+        this.domain = domain;
+        this.dungeon = dungeon;
+        this.state = StateGenerator.getCurrentState(domain, BurlapCraft.currentDungeon);
+        this.map = map;
+        this.curPos = HelperActions.getPlayerPosition();
+        this.helper = new HelperActions();
+        this.direction = getCurrentDirection();
+        
+    }
+    
+    private Direction getCurrentDirection() {
+    	int yaw = Math.abs(HelperActions.getYawDirection());
+    	if(yaw >= 0 && yaw < 90) return Direction.South;
+    	else if (yaw >= 90 && yaw < 180) return Direction.West;
+    	else if (yaw >= 180 && yaw < 270) return Direction.South;
+    	else return Direction.East;
+	}
+
+	public void printPos(){
+        System.out.println("You are at "+ this.curPos.x + "," + this.curPos.y + "," + this.curPos.z);
+    }
+    
+    public void test()
+    {
+    	try
+    	{
+    		while(true)
+    		{
+    			//System.out.println(HelperActions.getPitchDirection());
+    			//HelperActions.moveForward(false);
+    			Thread.sleep(1000);
+    		}
+    	}catch(Exception e){}
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void testicles(){
+//      World world = Minecraft.getMinecraft().theWorld;
+//      World world = MinecraftServer.getServer().worldServers [0];
+        World world = FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0);
+        Random rand = new Random();
+        for(int countparticles = 0; countparticles <= 10; ++countparticles){
+            System.out.println("Spawning particles at"+curPos.x+","+curPos.y+1+","+curPos.z);
+            System.out.println("The world is"+world);
+            world.spawnParticle("flame", curPos.x, curPos.y + curPos.y+1, curPos.z, 0.0D, 0.0D, 0.0D);
+        }
+        world = Minecraft.getMinecraft().theWorld;
+        for(int countparticles = 0; countparticles <= 10; ++countparticles){
+            System.out.println("Spawning particles at"+curPos.x+","+curPos.y+1+","+curPos.z);
+            System.out.println("Test the world is"+world);
+            world.spawnParticle("f  lame", curPos.x, curPos.y + curPos.y+1, curPos.z, 0.0D, 0.0D, 0.0D);
+            helper.moveForward(true);
+        }
+    }
+    
+    public void turnRight(){
+    	switch(direction){
+    	case North:
+    		HelperActions.faceEast();
+    		break;
+    		
+    	case East:
+    		HelperActions.faceSouth();
+    		break;
+    		
+    	case South:
+    		HelperActions.faceWest();
+    		break;
+    	default:
+    		break;
+    	}
+    }
+}

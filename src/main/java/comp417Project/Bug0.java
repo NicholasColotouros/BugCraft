@@ -26,23 +26,36 @@ import java.util.Random;
  */
 public class Bug0 {
 	
-	public enum Direction { North, East, South, West }
+	public enum Direction { South, West, North, East }
 	
-    HelperPos curPos;
-    Direction direction;
+    Direction currentDirection;
     boolean followingWall;
        
     public Bug0(){
-        curPos = HelperActions.getPlayerPosition();
         followingWall = false;
+    }
+    
+    public void runBug(){
+    	
+    	// Initialize direction
+    	currentDirection = getCurrentDirection();
+    	while(true){
+	    	try{
+	    		Thread.sleep(1500); // Need this to allows the action to complete
+	    		System.out.println(getBlockAhead() + " " + getBlockOnFloor() + " " + HelperActions.getYawDirection());
+	    		if(getBlockAhead() == 0){ // Nothing ahead
+	    			HelperActions.moveForward(false);
+	    		}
+	    		else{
+	    			turnRight();
+	    		}
+	    	}catch(InterruptedException e){e.printStackTrace();}
+    	}
     }
     
     private Direction getCurrentDirection() {
     	int yaw = Math.abs(HelperActions.getYawDirection());
-    	if(yaw >= 0 && yaw < 90) return Direction.South;
-    	else if (yaw >= 90 && yaw < 180) return Direction.West;
-    	else if (yaw >= 180 && yaw < 270) return Direction.South;
-    	else return Direction.East;
+    	return Direction.values()[yaw];
 	}
 
     public void test()
@@ -51,7 +64,7 @@ public class Bug0 {
     	
     	HelperActions.getPlayerPosition();
     	// Initialize so we know direction
-    	direction = Direction.North;
+    	currentDirection = Direction.North;
     	turnRight();
     	
     	try
@@ -64,15 +77,19 @@ public class Bug0 {
     }
     
 	private void printPos(){
+		HelperPos curPos = HelperActions.getPlayerPosition();
         System.out.println("You are at "+ curPos.x + "," + curPos.y + "," + curPos.z);
     }
     
     private int getBlockOnFloor(){
-    	return HelperActions.getBlockId(curPos.x, curPos.y-1, curPos.z);
+    	HelperPos curPos = HelperActions.getPlayerPosition();
+        return HelperActions.getBlockId(curPos.x, curPos.y-1, curPos.z);
     }
     
     private int getBlockAhead(){
-    	switch(direction){
+    	HelperPos curPos = HelperActions.getPlayerPosition();
+        
+    	switch(currentDirection){
     	case North:
     		return HelperActions.getBlockId(curPos.x, curPos.y, curPos.z-1);
     		
@@ -89,25 +106,25 @@ public class Bug0 {
     }
     
     public void turnRight(){
-    	switch(direction){
+    	switch(currentDirection){
     	case North:
     		HelperActions.faceEast();
-    		direction = Direction.East;
+    		currentDirection = Direction.East;
     		break;
     		
     	case East:
     		HelperActions.faceSouth();
-    		direction = Direction.South;
+    		currentDirection = Direction.South;
     		break;
     		
     	case South:
     		HelperActions.faceWest();
-    		direction = Direction.West;
+    		currentDirection = Direction.West;
     		break;
     		
     	case West:
     		HelperActions.faceNorth();
-    		direction = Direction.North;
+    		currentDirection = Direction.North;
     	}
     }
 }

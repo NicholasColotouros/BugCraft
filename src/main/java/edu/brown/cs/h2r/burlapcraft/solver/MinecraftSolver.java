@@ -123,8 +123,8 @@ public class MinecraftSolver {
 
 		}
 		else if(plannerToUse == 2){ // Bug0
-			Bug0 bug = new Bug0(domain, BurlapCraft.currentDungeon);
-			bug.test();
+			Bug0 bug = new Bug0();
+			bug.runBug();
 		}
 		else{
 			throw new RuntimeException("Error: planner type is " + planner + "; use 0 for BFS or 1 for A* or 2 for Bug0");

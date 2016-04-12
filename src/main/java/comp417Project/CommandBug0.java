@@ -12,6 +12,12 @@ import edu.brown.cs.h2r.burlapcraft.dungeongenerator.Dungeon;
 import edu.brown.cs.h2r.burlapcraft.solver.MinecraftSolver;
 import edu.brown.cs.h2r.burlapcraft.stategenerator.StateGenerator;
 
+/***
+ * Chat command for bug0
+ * 
+ * @author Nicholas Nathan Colotouros
+ *
+ */
 public class CommandBug0 implements ICommand {
 
 	private final List aliases;
@@ -33,7 +39,7 @@ public class CommandBug0 implements ICommand {
 
 	@Override
 	public String getCommandUsage(ICommandSender p_71518_1_) {
-		return "bug0 [closed|open] [all|noplace]\nIf closed/open not specified, closed is used.\nIf all/noplace not specified, all is used.";
+		return "bug0 -- no arguments";
 	}
 
 	@Override
@@ -45,8 +51,8 @@ public class CommandBug0 implements ICommand {
 	public void processCommand(ICommandSender sender, String[] args) {
 		World world = sender.getEntityWorld();
 		if (!world.isRemote) {
-			if (args.length > 2) {
-				sender.addChatMessage(new ChatComponentText("This command takes only 2 optional arguments: closed or open as the first, and all or noplace as the second."));
+			if (args.length > 0) {
+				sender.addChatMessage(new ChatComponentText("This command does not take any optional arguments."));
 				return;
 			}
 			
@@ -57,31 +63,10 @@ public class CommandBug0 implements ICommand {
 				return;
 			}
 
-
-			boolean closed = true;
-			boolean place = true;
-			if(args.length == 1){
-				if(args[0].equals("open")){
-					closed = false;
-				}
-			}
-			
-			if(args.length == 2){
-				if(args[0].equals("open")){
-					closed = false;
-				}
-				if(args[1].equals("noplace")){
-					place = false;
-				}
-			}
-
-			final boolean fclosed = closed;
-			final boolean fplace = place;
-
 			Thread bthread = new Thread(new Runnable() {
 				@Override
 				public void run() {
-					MinecraftSolver.plan(2, fclosed, fplace);
+					MinecraftSolver.plan(2, false, false);
 				}
 			});
 

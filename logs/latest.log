@@ -1,31 +1,43 @@
-[12:53:21] [main/INFO]: Setting user: Player628
-[12:53:22] [Client thread/INFO]: LWJGL Version: 2.9.1
-[12:53:30] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:BurlapCraft
-[12:53:31] [Sound Library Loader/INFO]: Sound engine started
-[12:53:31] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
-[12:53:31] [Client thread/INFO]: Created: 16x16 textures/items-atlas
-[12:53:32] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:BurlapCraft
-[12:53:32] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
-[12:53:32] [Client thread/INFO]: Created: 256x256 textures/items-atlas
-[12:53:33] [Sound Library Loader/INFO]: Sound engine started
-[12:54:02] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
-[12:54:02] [Server thread/INFO]: Generating keypair
-[12:54:03] [Server thread/INFO]: Preparing start region for level 0
-[12:54:04] [Server thread/INFO]: Changing view distance to 12, from 10
-[12:54:04] [Server thread/INFO]: Player628[local:E:1af00847] logged in with entity id 348 at (-79.49764388012409, 111.0, -187.30000001192093)
-[12:54:04] [Server thread/INFO]: Player628 joined the game
-[12:54:08] [Client thread/INFO]: [CHAT] You are not inside a dungeon
-[12:54:17] [Server thread/INFO]: <Player628> tele bug0
-[12:54:18] [Client thread/INFO]: [CHAT] <Player628> tele bug0
-[12:54:24] [Client thread/INFO]: [CHAT] No dungeon 'bug0'.  Dungeons are: [bug01, bug02, bug03, cleanup, finder, fourrooms, grid, maze0, maze1, small_bridge, tiny_bridge]
-[12:55:26] [Server thread/INFO]: Saving and pausing game...
-[12:55:26] [Server thread/INFO]: Saving chunks for level 'ROS'/Overworld
-[12:55:26] [Server thread/INFO]: Saving chunks for level 'ROS'/Nether
-[12:55:26] [Server thread/INFO]: Saving chunks for level 'ROS'/The End
-[12:55:28] [Client thread/INFO]: Stopping!
-[12:55:28] [Server thread/INFO]: Stopping server
-[12:55:28] [Server thread/INFO]: Saving players
-[12:55:28] [Server thread/INFO]: Saving worlds
-[12:55:28] [Server thread/INFO]: Saving chunks for level 'ROS'/Overworld
-[12:55:28] [Server thread/INFO]: Saving chunks for level 'ROS'/Nether
-[12:55:28] [Server thread/INFO]: Saving chunks for level 'ROS'/The End
+[13:46:27] [main/INFO]: Setting user: Player589
+[13:46:28] [Client thread/INFO]: LWJGL Version: 2.9.1
+[13:46:37] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:BurlapCraft
+[13:46:37] [Sound Library Loader/INFO]: Sound engine started
+[13:46:38] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[13:46:38] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[13:46:38] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:BurlapCraft
+[13:46:38] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[13:46:38] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[13:46:39] [Sound Library Loader/INFO]: Sound engine started
+[13:46:42] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[13:46:42] [Server thread/INFO]: Generating keypair
+[13:46:42] [Server thread/INFO]: Preparing start region for level 0
+[13:46:43] [Server thread/INFO]: Changing view distance to 12, from 10
+[13:46:44] [Server thread/INFO]: Player589[local:E:f655979e] logged in with entity id 150 at (-122.5, 111.0, -237.4383962542867)
+[13:46:44] [Server thread/INFO]: Player589 joined the game
+[13:47:35] [Server thread/INFO]: Saving and pausing game...
+[13:47:35] [Server thread/INFO]: Saving chunks for level 'ROS'/Overworld
+[13:47:35] [Server thread/INFO]: Saving chunks for level 'ROS'/Nether
+[13:47:35] [Server thread/INFO]: Saving chunks for level 'ROS'/The End
+[13:47:37] [Server thread/INFO]: Stopping server
+[13:47:37] [Server thread/INFO]: Saving players
+[13:47:37] [Server thread/INFO]: Saving worlds
+[13:47:37] [Server thread/INFO]: Saving chunks for level 'ROS'/Overworld
+[13:47:37] [Server thread/INFO]: Saving chunks for level 'ROS'/Nether
+[13:47:37] [Server thread/INFO]: Saving chunks for level 'ROS'/The End
+[13:47:40] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[13:47:40] [Server thread/INFO]: Generating keypair
+[13:47:40] [Server thread/INFO]: Preparing start region for level 0
+[13:47:40] [Server thread/INFO]: Changing view distance to 12, from 10
+[13:47:40] [Server thread/INFO]: Player589[local:E:19f67ccc] logged in with entity id 2379 at (-77.5, 111.0, -184.4383962542867)
+[13:47:40] [Server thread/INFO]: Player589 joined the game
+[13:50:01] [Server thread/INFO]: Saving and pausing game...
+[13:50:01] [Server thread/INFO]: Saving chunks for level 'ROS'/Overworld
+[13:50:01] [Server thread/INFO]: Saving chunks for level 'ROS'/Nether
+[13:50:01] [Server thread/INFO]: Saving chunks for level 'ROS'/The End
+[13:50:03] [Client thread/INFO]: Stopping!
+[13:50:03] [Server thread/INFO]: Stopping server
+[13:50:03] [Server thread/INFO]: Saving players
+[13:50:03] [Server thread/INFO]: Saving worlds
+[13:50:03] [Server thread/INFO]: Saving chunks for level 'ROS'/Overworld
+[13:50:03] [Server thread/INFO]: Saving chunks for level 'ROS'/Nether
+[13:50:03] [Server thread/INFO]: Saving chunks for level 'ROS'/The End

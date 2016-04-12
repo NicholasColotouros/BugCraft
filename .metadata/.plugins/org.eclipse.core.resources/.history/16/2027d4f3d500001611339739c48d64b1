@@ -1,0 +1,158 @@
+package comp417Project;
+
+import java.util.Random;
+
+import burlap.oomdp.core.Domain;
+import burlap.oomdp.core.states.State;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import edu.brown.cs.h2r.burlapcraft.BurlapCraft;
+import edu.brown.cs.h2r.burlapcraft.dungeongenerator.Dungeon;
+import edu.brown.cs.h2r.burlapcraft.helper.HelperActions;
+import edu.brown.cs.h2r.burlapcraft.helper.HelperPos;
+import edu.brown.cs.h2r.burlapcraft.stategenerator.StateGenerator;
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.World;
+import net.minecraft.server.*;
+import java.util.Random;
+
+/***
+ * The greedy versiion of the bug algorithm which follows a wall by keeping the followed wall to the left side 
+ * and moves towards the goal as often as possible.
+ * @author Nicholas Nathan Colotouros
+ */
+public class Bug0 {
+	
+	public enum Direction { South, West, North, East }
+	
+	int actionWaitTime = 1500;
+    Direction currentDirection;
+    boolean followingWall;
+       
+    public Bug0(){
+        followingWall = false;
+    }
+    
+    public void runBug(){
+    	currentDirection = getCurrentDirection();
+
+    	while(true){
+	    	try{
+	    		// If we're following a wall, we need to constantly turn left
+	    		// to see if the wall went off to the side
+	    		if(followingWall){ 
+	    			turnLeft();
+	    			if(getBlockAhead() == 0){ // Wall went off to the left
+	    				HelperActions.moveForward(false);
+	    			}
+	    			else { // There is a wall
+	    				turnRight();
+	    				if(getBlockAhead() != 0){ // Wall to the left and in front
+	    					turnRight();
+	    				}
+	    				HelperActions.moveForward(false);
+	    			}
+	    		}
+	    		else{
+	    			if(getBlockAhead() == 0){
+	    				HelperActions.moveForward(false);
+	    			}
+	    			else{
+	    				followingWall = true;
+	    				turnRight();
+	    			}
+	    		}
+	    	}catch(InterruptedException e){e.printStackTrace();}
+    	}
+    }
+    
+    Direction getCurrentDirection() {
+    	int yaw = Math.abs(HelperActions.getYawDirection());
+    	return Direction.values()[yaw];
+	}
+
+	void printPos(){
+		HelperPos curPos = HelperActions.getPlayerPosition();
+        System.out.println("You are at "+ curPos.x + "," + curPos.y + "," + curPos.z);
+    }
+    
+    int getBlockOnFloor(){
+    	HelperPos curPos = HelperActions.getPlayerPosition();
+        return HelperActions.getBlockId(curPos.x, curPos.y-1, curPos.z);
+    }
+    
+    int getBlockAhead(){
+    	HelperPos curPos = HelperActions.getPlayerPosition();
+        
+    	switch(currentDirection){
+    	case North:
+    		return HelperActions.getBlockId(curPos.x, curPos.y, curPos.z-1);
+    		
+    	case East:
+    		return HelperActions.getBlockId(curPos.x+1, curPos.y, curPos.z);
+    		
+    	case South:
+    		return HelperActions.getBlockId(curPos.x, curPos.y, curPos.z+1);
+    		
+    	case West:
+    		return HelperActions.getBlockId(curPos.x-1, curPos.y, curPos.z);
+    	}
+    	return -1;
+    }
+    
+    void turnRight() throws InterruptedException{
+    	switch(currentDirection){
+    	case North:
+    		HelperActions.faceEast();
+    		currentDirection = Direction.East;
+    		break;
+    		
+    	case East:
+    		HelperActions.faceSouth();
+    		currentDirection = Direction.South;
+    		break;
+    		
+    	case South:
+    		HelperActions.faceWest();
+    		currentDirection = Direction.West;
+    		break;
+    		
+    	case West:
+    		HelperActions.faceNorth();
+    		currentDirection = Direction.North;
+    	}
+    	Thread.sleep(actionWaitTime);
+    }
+
+    void turnLeft() throws InterruptedException{
+    	switch(currentDirection){
+    	case North:
+    		HelperActions.faceSouth();
+    		currentDirection = Direction.West;
+    		break;
+    		
+    	case East:
+    		HelperActions.faceNorth();
+    		currentDirection = Direction.South;
+    		break;
+    		
+    	case South:
+    		HelperActions.faceEast();
+    		currentDirection = Direction.West;
+    		break;
+    		
+    	case West:
+    		HelperActions.faceSouth();
+    		currentDirection = Direction.North;
+    	}
+    	Thread.sleep(actionWaitTime);
+    }
+    
+    void moveForward() throws InterruptedException{
+    	HelperActions.moveForward(false);
+    	Thread.sleep(actionWaitTime);
+    }
+}

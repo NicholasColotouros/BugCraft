@@ -1,0 +1,141 @@
+package comp417Project;
+
+import java.util.Random;
+
+import burlap.oomdp.core.Domain;
+import burlap.oomdp.core.states.State;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import edu.brown.cs.h2r.burlapcraft.BurlapCraft;
+import edu.brown.cs.h2r.burlapcraft.dungeongenerator.Dungeon;
+import edu.brown.cs.h2r.burlapcraft.helper.HelperActions;
+import edu.brown.cs.h2r.burlapcraft.helper.HelperPos;
+import edu.brown.cs.h2r.burlapcraft.stategenerator.StateGenerator;
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.World;
+import net.minecraft.server.*;
+import java.util.Random;
+
+/***
+ * Bug0 that turns right all of the time
+ * @author Nicholas
+ *
+ */
+public class Bug0 {
+	
+	public enum Direction { South, West, North, East }
+	
+    Direction currentDirection;
+    boolean followingWall;
+       
+    public Bug0(){
+        followingWall = false;
+    }
+    
+    public void runBug(){
+    	currentDirection = getCurrentDirection();
+
+    	while(true){
+	    	try{
+	    		Thread.sleep(1500); // Need this to allows the action to complete
+	    		
+	    		if(followingWall && getBlockAhead() == 0){
+	    			turn(false);
+	    		}
+	    		
+	    		System.out.println(getBlockAhead() + " " + getBlockOnFloor() + " " + HelperActions.getYawDirection());
+	    		if(getBlockAhead() == 0){ // Nothing ahead
+	    			HelperActions.moveForward(false);
+	    		}
+	    		else{
+	    			turn(true);
+	    		}
+	    	}catch(InterruptedException e){e.printStackTrace();}
+    	}
+    }
+    
+    Direction getCurrentDirection() {
+    	int yaw = Math.abs(HelperActions.getYawDirection());
+    	return Direction.values()[yaw];
+	}
+
+    void test()
+    {
+    	HelperActions.moveForward(true);
+    	
+    	HelperActions.getPlayerPosition();
+    	// Initialize so we know direction
+    	currentDirection = Direction.North;
+    	turnRight();
+    	
+    	try
+    	{
+    		Thread.sleep(1500);
+    		int b = getBlockOnFloor();
+    		System.out.println(b);
+
+    	}catch(Exception e){}
+    }
+    
+	void printPos(){
+		HelperPos curPos = HelperActions.getPlayerPosition();
+        System.out.println("You are at "+ curPos.x + "," + curPos.y + "," + curPos.z);
+    }
+    
+    int getBlockOnFloor(){
+    	HelperPos curPos = HelperActions.getPlayerPosition();
+        return HelperActions.getBlockId(curPos.x, curPos.y-1, curPos.z);
+    }
+    
+    int getBlockAhead(){
+    	HelperPos curPos = HelperActions.getPlayerPosition();
+        
+    	switch(currentDirection){
+    	case North:
+    		return HelperActions.getBlockId(curPos.x, curPos.y, curPos.z-1);
+    		
+    	case East:
+    		return HelperActions.getBlockId(curPos.x+1, curPos.y, curPos.z);
+    		
+    	case South:
+    		return HelperActions.getBlockId(curPos.x, curPos.y, curPos.z+1);
+    		
+    	case West:
+    		return HelperActions.getBlockId(curPos.x-1, curPos.y, curPos.z);
+    	}
+    	return -1;
+    }
+    
+    void turn(boolean right){
+    	if(right)
+    		HelperActions.moveYawToTarget((currentDirection.ordinal() + 1) % 4);
+    	else
+    		HelperActions.moveYawToTarget(Math.abs(currentDirection.ordinal() - 1) % 4);
+    }
+    
+    void turnRight(){
+    	switch(currentDirection){
+    	case North:
+    		HelperActions.faceEast();
+    		currentDirection = Direction.East;
+    		break;
+    		
+    	case East:
+    		HelperActions.faceSouth();
+    		currentDirection = Direction.South;
+    		break;
+    		
+    	case South:
+    		HelperActions.faceWest();
+    		currentDirection = Direction.West;
+    		break;
+    		
+    	case West:
+    		HelperActions.faceNorth();
+    		currentDirection = Direction.North;
+    	}
+    }
+}

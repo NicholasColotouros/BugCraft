@@ -26,14 +26,15 @@ import burlap.oomdp.core.TerminalFunction;
 import burlap.oomdp.singleagent.GroundedAction;
 import burlap.oomdp.singleagent.RewardFunction;
 import burlap.oomdp.statehashing.SimpleHashableStateFactory;
-import comp417Project.Bug0;
 import comp417Project.Bug2;
+import comp417Project.WallRunner;
 import edu.brown.cs.h2r.burlapcraft.BurlapCraft;
 import edu.brown.cs.h2r.burlapcraft.domaingenerator.MinecraftDomainGenerator;
 import edu.brown.cs.h2r.burlapcraft.dungeongenerator.Dungeon;
 import edu.brown.cs.h2r.burlapcraft.environment.MinecraftEnvironment;
 import edu.brown.cs.h2r.burlapcraft.helper.HelperActions;
 import edu.brown.cs.h2r.burlapcraft.helper.HelperGeometry;
+import edu.brown.cs.h2r.burlapcraft.helper.HelperGeometry.Pose;
 import edu.brown.cs.h2r.burlapcraft.helper.HelperNameSpace;
 import edu.brown.cs.h2r.burlapcraft.stategenerator.StateGenerator;
 
@@ -123,12 +124,13 @@ public class MinecraftSolver {
 			
 
 		}
-		else if(plannerToUse == 2){ // Bug0
-			Bug0 bug = new Bug0();
-			bug.runBug();
+		else if(plannerToUse == 2){ // Wall runner
+			getGoalPose(initialState);
+			WallRunner bug = new WallRunner();
+			bug.wallRun();
 		}
 		else if(plannerToUse == 3){ // bug2
-			Bug2 bug = new Bug2();
+			Bug2 bug = new Bug2(getGoalPose(initialState));
 			bug.runBug();
 		}
 		else{

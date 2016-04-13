@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import comp417Project.CommandBug0;
+import comp417Project.CommandBug2;
+import comp417Project.CommandWallRun;
 import edu.brown.cs.h2r.burlapcraft.command.*;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.MinecraftForge;
@@ -120,7 +121,8 @@ public class BurlapCraft {
         event.registerServerCommand(new CommandCurrentPath());
         
         // COMP 417 events
-        event.registerServerCommand(new CommandBug0());
+        event.registerServerCommand(new CommandWallRun());
+        event.registerServerCommand(new CommandBug2());
     }
     
     @EventHandler

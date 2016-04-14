@@ -1,0 +1,50 @@
+[22:53:21] [main/INFO]: Setting user: Player921
+[22:53:22] [Client thread/INFO]: LWJGL Version: 2.9.1
+[22:53:30] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:BurlapCraft
+[22:53:30] [Sound Library Loader/INFO]: Sound engine started
+[22:53:31] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[22:53:31] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[22:53:31] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:BurlapCraft
+[22:53:31] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[22:53:31] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[22:53:32] [Sound Library Loader/INFO]: Sound engine started
+[22:53:36] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[22:53:36] [Server thread/INFO]: Generating keypair
+[22:53:36] [Server thread/INFO]: Preparing start region for level 0
+[22:53:37] [Server thread/INFO]: Player921[local:E:737ef4ce] logged in with entity id 246 at (-160.30000001192093, 111.0, -246.6034458978245)
+[22:53:37] [Server thread/INFO]: Player921 joined the game
+[22:53:52] [Server thread/INFO]: Saving and pausing game...
+[22:53:52] [Server thread/INFO]: Saving chunks for level 'ROS'/Overworld
+[22:53:52] [Server thread/INFO]: Saving chunks for level 'ROS'/Nether
+[22:53:52] [Server thread/INFO]: Saving chunks for level 'ROS'/The End
+[22:53:53] [Server thread/INFO]: Stopping server
+[22:53:53] [Server thread/INFO]: Saving players
+[22:53:53] [Server thread/INFO]: Saving worlds
+[22:53:53] [Server thread/INFO]: Saving chunks for level 'ROS'/Overworld
+[22:53:53] [Server thread/INFO]: Saving chunks for level 'ROS'/Nether
+[22:53:53] [Server thread/INFO]: Saving chunks for level 'ROS'/The End
+[22:53:59] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[22:53:59] [Server thread/INFO]: Generating keypair
+[22:53:59] [Server thread/INFO]: Converting map!
+[22:53:59] [Server thread/INFO]: Scanning folders...
+[22:53:59] [Server thread/INFO]: Total conversion count is 0
+[22:53:59] [Server thread/INFO]: Preparing start region for level 0
+[22:54:00] [Server thread/INFO]: Preparing spawn area: 18%
+[22:54:01] [Server thread/INFO]: Preparing spawn area: 38%
+[22:54:02] [Server thread/INFO]: Preparing spawn area: 62%
+[22:54:03] [Server thread/INFO]: Preparing spawn area: 80%
+[22:54:04] [Server thread/INFO]: Player921[local:E:1002c2f6] logged in with entity id 9521 at (-71.5, 69.0, 213.5)
+[22:54:04] [Server thread/INFO]: Player921 joined the game
+[22:54:14] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 3643ms behind, skipping 72 tick(s)
+[22:54:26] [Server thread/INFO]: Player921 has just earned the achievement [Taking Inventory]
+[22:54:26] [Client thread/INFO]: [CHAT] Player921 has just earned the achievement [Taking Inventory]
+[22:55:03] [Server thread/INFO]: Saving and pausing game...
+[22:55:03] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
+[22:55:03] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
+[22:55:03] [Server thread/INFO]: Saving chunks for level 'New World'/The End
+[22:55:04] [Server thread/INFO]: Stopping server
+[22:55:04] [Server thread/INFO]: Saving players
+[22:55:04] [Server thread/INFO]: Saving worlds
+[22:55:04] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
+[22:55:04] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
+[22:55:04] [Server thread/INFO]: Saving chunks for level 'New World'/The End

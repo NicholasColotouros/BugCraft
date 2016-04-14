@@ -1,0 +1,193 @@
+package comp417Project;
+
+import java.util.Collections;
+import java.util.LinkedList;
+
+import edu.brown.cs.h2r.burlapcraft.BurlapCraft;
+import edu.brown.cs.h2r.burlapcraft.dungeongenerator.Dungeon;
+import edu.brown.cs.h2r.burlapcraft.helper.HelperActions;
+import edu.brown.cs.h2r.burlapcraft.helper.HelperGeometry.Pose;
+import edu.brown.cs.h2r.burlapcraft.helper.HelperPos;
+
+/***
+ * Extends the WallRunner class to take advantage of the convenience methods.
+ * Implements the bug2 algorithm which follows a wall and then follows the S-Line.
+ * 
+ * The S-Line being the line from the start point to the goal.
+ * @author Nicholas Nathan Colotouros
+ *
+ */
+public class Bug2 extends WallRunner{
+	HelperPos startingPos;
+	Pose goal;
+	LinkedList<Pose> sline;
+    int slineIndex;
+	
+	public Bug2(Pose goalPose) {
+		super();
+		startingPos = HelperActions.getPlayerPosition();
+		Pose dungeon = BurlapCraft.currentDungeon.getPose();
+		
+		// Need to convert dungeon position index to world position
+		goal = new Pose(goalPose.getX() + dungeon.getX(), goalPose.getY() + dungeon.getY(), goalPose.getZ() + dungeon.getZ(), 0,0,0,0);
+	}
+	
+	/***
+	 * Initializes all states from the start state (exclusively) to the goal state (inclusively).
+	 * sline is empty if the bot is already at the goal.
+	 */
+	private void initializeSLine() {
+		sline = new LinkedList<Pose>();
+		slineIndex = 0;
+		boolean startAheadOfEnd = startingPos.z > goal.getZ();
+			
+		Pose start;
+		Pose end;
+		
+		if(startAheadOfEnd){
+			start = goal;
+			end = new Pose(startingPos.x, startingPos.y, startingPos.z, 0,0,0,0);
+		}
+		else {
+			start = new Pose(startingPos.x, startingPos.y, startingPos.z, 0,0,0,0);
+			end = goal;
+		}
+		
+		if(end.getZ() == start.getZ()){
+			if(end.getX() == start.getZ()){ // start == end
+				return;
+			}
+			else{ // vertical line
+				for(int i = (int) (start.getX()); i <= end.getX(); i++){
+					sline.addLast(new Pose(i, start.getY(), start.getZ(),0,0,0,0));
+				}
+			}
+		}
+		else{ // line in the form of x = az + b
+			double a = (start.getX() - end.getX()) / (start.getZ() - end.getZ());
+			double b = start.getX() - a * start.getZ();
+			
+			int previousX = (int) start.getX();
+			for(int i = (int) (start.getZ()); i <= end.getZ(); i++){
+				int x = (int)Math.ceil(a * i + b);
+				
+				if(x >= previousX){
+					for(int j = previousX; j <= x; j++){ // Second loop ensures no diagonals along our line
+						sline.addLast(new Pose(j, start.getY(), i, 0,0,0,0));
+					}
+				}
+				else{
+					for(int j = previousX; j >= x; j--){ // Second loop ensures no diagonals along our line
+						sline.addLast(new Pose(j, start.getY(), i, 0,0,0,0));
+					}
+				}
+				previousX = x;
+			}
+		}
+		
+		// TODO reverse the order so that the start point is first
+		if(startAheadOfEnd) Collections.reverse(sline);
+	}
+	
+	// returns the index the player is on
+	private int getSLinePosition(){
+		HelperPos pos = HelperActions.getPlayerPosition();
+		for(int i = 0; i < sline.size(); i++){
+			Pose p = sline.get(i);
+			if(p.getX() == pos.x && p.getZ() == pos.z){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public void runBug(){
+		currentDirection = getCurrentDirection();
+		initializeSLine();
+//		printPos();
+//		System.out.println("Goal: " + goal.getX() + ", " + goal.getY() + ", " + goal.getZ());
+//		System.out.println(sline.toString());
+		
+		try{
+			while(slineIndex < sline.size()){
+				int linePos = getSLinePosition();
+				if(linePos > slineIndex - 1){
+					slineIndex = linePos;
+					followingWall = false;
+					
+					facePosition(sline.get(slineIndex+1));
+					// TODO turn towards next index
+					// TODO if wall follow
+				}
+				else { // Can't follow sline -- following wall
+					// If we're following a wall, we need to constantly turn left
+		    		// to see if the wall went off to the side
+		    		if(followingWall){ 
+		    			followWall();
+		    		}
+		    		else{
+		    			if(getBlockAhead() == 0){
+		    				moveForward();
+		    			}
+		    			else{
+		    				followingWall = true;
+		    				turnRight();
+		    			}
+		    		}
+				}
+			}			
+		}catch(InterruptedException e){e.printStackTrace();}
+    	System.out.println("Destination reached.");
+    }
+	
+	private void facePosition(Pose posToFace) throws InterruptedException{
+		HelperPos pos = HelperActions.getPlayerPosition();
+		double dx = pos.x - posToFace.getX();
+		double dz = pos.z - posToFace.getZ();
+		printPos();
+		System.out.println("Turning to face: " + posToFace.toString());
+		
+		if(dx == 0){
+			if(dz < 0){
+				HelperActions.moveYawToTarget(Direction.North.ordinal());
+				currentDirection = Direction.North;
+			}
+			else if(dz > 0){
+				HelperActions.moveYawToTarget(Direction.South.ordinal());
+				currentDirection = Direction.South;
+			}
+		}
+		else if(dx < 0){
+			HelperActions.moveYawToTarget(Direction.East.ordinal());
+			currentDirection = Direction.East;
+		}
+		else { // dx > 0
+			HelperActions.moveYawToTarget(Direction.West.ordinal());
+			currentDirection = Direction.West;
+		}
+		System.out.println("Turning " + currentDirection);
+		Thread.sleep(actionWaitTime);
+	}
+	
+	// Checks that the wall is to the left and advances one step along that wall
+	private void followWall() throws InterruptedException{
+		turnLeft();
+				
+		// Wall went off to the left
+		if(getBlockAhead() == 0){
+			moveForward();
+		}
+		else {
+			turnRight();
+					
+			if(getBlockAhead() != 0){ // Wall to the left and in front
+				turnRight();
+						
+				if(getBlockAhead() != 0){ // Just entered an alcove
+					turnRight();
+				}
+			}
+			moveForward();
+		}
+	}
+}

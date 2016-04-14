@@ -12,9 +12,7 @@
 <fullyQualifiedTypeName name="java.lang.Thread"/>
 <fullyQualifiedTypeName name="java.lang.InterruptedException"/>
 <fullyQualifiedTypeName name="comp417Project.Bug2"/>
-<fullyQualifiedTypeName name="edu.brown.cs.h2r.burlapcraft.BurlapCraft"/>
 <fullyQualifiedTypeName name="edu.brown.cs.h2r.burlapcraft.helper.HelperPos"/>
-<fullyQualifiedTypeName name="edu.brown.cs.h2r.burlapcraft.helper.HelperActions"/>
 <fullyQualifiedTypeName name="edu.brown.cs.h2r.burlapcraft.helper.HelperGeometry.Pose"/>
 <fullyQualifiedTypeName name="comp417Project.WallRunner"/>
 <fullyQualifiedTypeName name="comp417Project.DungeonBug00"/>
@@ -23,6 +21,10 @@
 <fullyQualifiedTypeName name="comp417Project.CommandBug2"/>
 <fullyQualifiedTypeName name="comp417Project.DemoDungeon"/>
 <fullyQualifiedTypeName name="comp417Project.DungeonDemo"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="edu.brown.cs.h2r.burlapcraft.BurlapCraft"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
+<fullyQualifiedTypeName name="sun.tracing.PrintStreamProviderFactory"/>
+<fullyQualifiedTypeName name="edu.brown.cs.h2r.burlapcraft.helper.HelperActions"/>
 </qualifiedTypeNameHistroy>

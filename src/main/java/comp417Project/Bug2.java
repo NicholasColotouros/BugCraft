@@ -57,6 +57,12 @@ public class Bug2 extends WallRunner{
 				return;
 			}
 			else{ // vertical line
+				if(start.getX() > end.getX()){
+					Pose temp = start;
+					start = end;
+					end = temp;
+					startAheadOfEnd = !startAheadOfEnd;
+				}
 				for(int i = (int) (start.getX()); i <= end.getX(); i++){
 					sline.addLast(new Pose(i, start.getY(), start.getZ(),0,0,0,0));
 				}
